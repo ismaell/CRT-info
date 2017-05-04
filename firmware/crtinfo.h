@@ -1,5 +1,5 @@
-#include <at89x51.h> // Definitions of registers, SFRs and Bits
 #include "bitmapfont.h"
+#include <at89x51.h> // Definitions of registers, SFRs and Bits
 
 // ISR Prototypes ===================================================
 void INT0_ISR(void)	__interrupt 0; // ISR for External __interrupt 0
@@ -59,6 +59,7 @@ void write_register(unsigned char reg, unsigned char value){
 }
 
 void vdp_set_vram_addr(unsigned int address){
+	address--; //Why?!
 	*((__xdata unsigned char*) VDP_COMMAND) = (address & 0xff);
 	*((__xdata unsigned char*) VDP_COMMAND) = ((address >> 8) & 0x3f);
 }
@@ -68,21 +69,35 @@ void print(int x, int y, const char* str){
 	vdp_set_vram_addr(NAME_TABLE_BASE_ADDR + x + y * TILE_WIDTH);
 
 	for (; *str != 0; str++){
-		if (*str < 'A' || *str > 'Z'){
-			tile_id = 0; // missing glyph
+		if (*str >= 'A' && *str <= 'Z'){
+			tile_id = (TILEID_A + *str - 'A');
+		} else if (*str >= 'a' && *str <= 'z'){
+			tile_id = (TILEID_A + *str - 'a'); //TODO: Add the lowercase a-z glyphs to bitmapfont.h
+		} else if (*str >= '0' && *str <= '9'){
+			tile_id = (TILEID_0 + *str - '0');
 		} else if (*str == ' ') {
-			tile_id = 0; // space
+			tile_id = TILEID_SPACE;
+		} else if (*str == '/') {
+			tile_id = TILEID_SLASH;
+		} else if (*str == '-') {
+			tile_id = TILEID_DASH;
+		} else if (*str == '.') {
+			tile_id = TILEID_PERIOD;
 		} else {
-			tile_id = (*str - 'A' + 1);
+			tile_id = TILEID_MISSING_GLYPH;
 		}
 
 		*((__xdata char*) VDP_DATA) = tile_id;
 	}
 }
 
-void delay(){
+void delay(unsigned int delta){
+	//Note: The maximum allowed delta value here is 65534.
+	//TODO: This function could be improved to compute msecs or seconds...
+	//      Alternatively we could also use hardware interrupts
+        //      to keep track of time with better precision.
 	unsigned int t = 0;
-	while (t<65534){
+	while (t<delta){
 		t++;
 	}
 }
