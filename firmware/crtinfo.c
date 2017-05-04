@@ -1,3 +1,6 @@
+// (c) Felipe Sanches <juca@members.fsf.org>
+// Released under the terms of the GNU General Public License v3 (or later)
+
 #include "crtinfo.h"
 
 #if 0

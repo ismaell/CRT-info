@@ -1,3 +1,6 @@
+// (c) Felipe Sanches <juca@members.fsf.org>
+// Released under the terms of the GNU General Public License v3 (or later)
+
 #define LEN_MISSING 1
 #define LEN_AZ ('Z' - 'A' + 1)
 #define LEN_09 ('9' - '0' + 1)
