@@ -18,8 +18,8 @@ void UART_ISR(void)	__interrupt 4; // ISR for UART __interrupt
 #define PATTERN_TABLE_BASE_ADDR          0x0800
 #define SPRITE_PATTERN_TABLE_BASE_ADDR   0x0C00
 #define SPRITE_ATTRIBUTE_TABLE_BASE_ADDR 0x1000
-#define TEXT_COLOR_0(c) c
-#define TEXT_COLOR_1(c) (c<<4)
+#define TEXT_BACKGROUND(c) (c & 0x0f)
+#define TEXT_FOREGROUND(c) ((c & 0x0f) << 4)
 
 //Video modes:
 #define VDP_GRAPHICS_1_MODE 0b000

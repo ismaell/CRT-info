@@ -40,7 +40,7 @@ void init_video(){
 	write_register(4, PATTERN_TABLE_BASE_ADDR / 0x800);
 	write_register(5, SPRITE_ATTRIBUTE_TABLE_BASE_ADDR / 0x80);
 	write_register(6, SPRITE_PATTERN_TABLE_BASE_ADDR / 0x800);
-	write_register(7, TEXT_COLOR_0(LIGHT_GREEN) | TEXT_COLOR_1(BLACK));
+	write_register(7, TEXT_BACKGROUND(BLACK) | TEXT_FOREGROUND(LIGHT_GREEN));
 }
 
 void main(void)
