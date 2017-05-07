@@ -56,6 +56,16 @@ void UART_ISR(void)	__interrupt 4; // ISR for UART __interrupt
 #define GRAY 14 
 #define WHITE 15
 
+void vdp_set_vram_addr(unsigned int address);
+
+void clear_screen(){
+        int i;
+        vdp_set_vram_addr(NAME_TABLE_BASE_ADDR);
+        for (i=0; i<TILE_WIDTH*TILE_HEIGHT; i++){
+                *((__xdata unsigned char*) VDP_DATA) = 0;
+        }
+}
+
 void write_register(unsigned char reg, unsigned char value){
 	*((__xdata unsigned char*) (VDP_COMMAND)) = value;
 	*((__xdata unsigned char*) VDP_COMMAND) = 0x80 | (reg & 0x7);
@@ -75,7 +85,7 @@ void print(int x, int y, const char* str){
 		if (*str >= 'A' && *str <= 'Z'){
 			tile_id = (TILEID_A + *str - 'A');
 		} else if (*str >= 'a' && *str <= 'z'){
-			tile_id = (TILEID_A + *str - 'a'); //TODO: Add the lowercase a-z glyphs to bitmapfont.h
+			tile_id = (TILEID_a + *str - 'a');
 		} else if (*str >= '0' && *str <= '9'){
 			tile_id = (TILEID_0 + *str - '0');
 		} else if (*str == ' ') {

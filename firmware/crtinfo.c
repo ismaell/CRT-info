@@ -3,7 +3,6 @@
 
 #include "crtinfo.h"
 
-#if 0
 #define XTAL_11_0592MHz 11059200
 #define BAUDRATE 28800
 void setup_uart1(){
@@ -12,18 +11,9 @@ void setup_uart1(){
 	PCON &= 0x7F; // PCON.7 = 0
 	TMOD = 0x20;
 	SCON = 0x50;
-	TH1  = 256 - ((XTAL_11_0592MHz / 384) / BAUDRATE); //This is H1=255 :-)
+	TH1  = 255; //256 - ((XTAL_11_0592MHz / 384) / BAUDRATE);
 	TL1  = 0x00;
 	TR1  = 1;
-}
-#endif
-
-void clear_screen(){
-	int i;
-	vdp_set_vram_addr(NAME_TABLE_BASE_ADDR);
-	for (i=0; i<TILE_WIDTH*TILE_HEIGHT; i++){
-		*((__xdata unsigned char*) VDP_DATA) = 0;
-	}
 }
 
 #define VIDEO_MODE VDP_TEXT_MODE
@@ -67,17 +57,20 @@ void draw_border(const char* c){
 void main(void)
 {
 	int x=5, y=1, vx=1, vy=1;
-	//setup_uart1();
+	setup_uart1();
 	init_video();
 
 	while(1){
 		clear_screen();
 
+		//TODO: receive and process remote commands sent by
+                //an external device over the serial port.
+
 		#define TEXT_BLOCK_WIDTH 25
 		#define TEXT_BLOCK_HEIGHT 6
 		print(x,y,   "   GAROA HACKER CLUBE    ");
 
-		print(x,y+2, "   04 DE MAIO DE 2017    ");
+		print(x,y+2, "   07 DE MAIO DE 2017    ");
 
 		print(x,y+4, "  Melhore este display!  ");
 		print(x,y+5, "github.com/garoa/CRT-info");
