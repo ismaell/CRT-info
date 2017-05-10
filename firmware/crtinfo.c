@@ -54,47 +54,187 @@ void draw_border(const char* c){
 	}
 }
 
+enum {
+	CRTINFO_DEFAULT_MESSAGE=0,
+	DISPLAY_HACKERS_TEXT=1
+} crtinfo_mode;
+
+static void draw_bouncing_message(){
+	static int x=5, y=1, vx=1, vy=1;
+	static int t=0;
+
+	clear_screen();
+
+	#define TEXT_BLOCK_WIDTH 25
+	#define TEXT_BLOCK_HEIGHT 6
+	print(x,y,   "   GAROA HACKER CLUBE    ");
+	print(x,y+2, "   10 DE MAIO DE 2017    ");
+
+	print(x,y+4, "  Melhore este display!  ");
+	print(x,y+5, "github.com/garoa/CRT-info");
+
+	draw_border("X");
+	delay(20000);
+	draw_border("-");
+	delay(20000);
+	draw_border(".");
+	delay(20000);
+
+	x+=vx;
+	y+=vy;
+	if (x >= TILE_WIDTH - TEXT_BLOCK_WIDTH){
+		x = (TILE_WIDTH - TEXT_BLOCK_WIDTH - vx);
+		vx = -vx;
+	}
+	if (y >= TILE_HEIGHT - TEXT_BLOCK_HEIGHT){
+		y = (TILE_HEIGHT - TEXT_BLOCK_HEIGHT - vy);
+		vy = -vy;
+	}
+	if (x < 1){x = 1; vx = -vx;}
+	if (y < 1){y = 1; vy = -vy;}
+
+	if (t++ > 50){
+		crtinfo_mode = DISPLAY_HACKERS_TEXT;
+		t = 0;
+		clear_screen();
+	}
+}
+
+__code const char* __code hackers[] = {
+"The Midnight Computer Wiring Society",
+" ",
+"GREENBLATT was hacker of systems and",
+" visionary of application; Gosper ",
+"was metaphysical explorer and ",
+"handyman of the esoteric. Together ",
+"they were two legs of a techno-",
+"cultural triangle which would serve",
+" as the Hacker Ethic's foundation in",
+"its rise to cultural supremacy at ",
+"MIT in the coming years. The third ",
+"leg of the triangle arrived in the ",
+"fall of 1963, and his name was ",
+"Stewart Nelson.",
+" ",
+"Not long after his arrival, Stew ",
+"Nelson displayed his curiosity and ",
+"ability to get into uncharted ",
+"electronic realms, traits which ",
+"indicated his potential to become a",
+"master magician in service to the ",
+"Hacker Ethic. As was the custom, ",
+"Nelson had come a week early for ",
+"Freshman Rush. He was a short kid,",
+" generally taciturn, with curly ",
+"hair, darting brown eyes, and a ",
+"large overbite which gave him the",
+" restlessly curious look of a small",
+" rodent. Indeed, Stewart Nelson ",
+"was sniffing out sophisticated ",
+"electronics equipment that he could",
+" play on, and it did not take him",
+"long to find what he wanted at MIT.",
+" ",
+"It began at WTBS, the campus radio ",
+"station. Bob Clements, a student ",
+"worker at the station who would ",
+"later do some PDP-6 hacking, was ",
+"showing a group of freshmen the ",
+"control rooms when he opened a door",
+"that opened to the complex machinery",
+"and found Stew Nelson, \"a weaselly",
+" little kid,\" he later remembered,",
+" \"who had his fingers on the guts",
+" of our phone lines and our East",
+" Campus radio transmitter.\"",
+" ",
+"Eventually, he found his way to the",
+" PDP-1 in the Kluge Room. The ",
+"machine got Stewart Nelson very",
+" excited. He saw this friendly ",
+"computer which you could put your",
+" hands on, and with a confidence ",
+"that came from what Greenblatt ",
+"might call born hackerism he got ",
+"to work. He noticed immediately how",
+" the One's outside speaker was ",
+"hooked to the computer, and how ",
+"Peter Samson's music program could",
+" control that speaker. So one night,",
+" very late, when John McKenzie and",
+" the people tending the TX-0 next ",
+"door were asleep in their homes,",
+" Stewart Nelson set about learning",
+" to program the PDP-1, and it did ",
+"not take him long to teach the ",
+"PDP-1 some new tricks. He had ",
+"programmed some appropriate tones",
+" to come out of the speaker and ",
+"into the open receiver of the",
+" campus phone that sat in the",
+" Kluge Room.",
+" ",
+"These tones made the phone system",
+" come to attention, so to speak,",
+" and dance.",
+" ",
+"Dance, phone lines, dance!",
+" ",
+"And the signals did dance. They ",
+"danced from one place on the MIT",
+" tie-line system to the next and",
+" then to the Haystack Observatory",
+" (connected to MIT's system),",
+"where they danced to an open line",
+" and, thus liberated, danced out",
+" into the world.",
+" ",
+"There was no stopping them,",
+" because the particular tones ",
+"which Stew Nelson had generated",
+" on the PDP-1 were the exact tones",
+" which the phone company used to",
+"send its internal calls around the",
+" world, and Stew Nelson knew that ",
+"they would enable him to go all",
+" around the marvelous system which",
+" was the phone company without ",
+"paying a penny."};
+
+void display_hackers_text(){
+	static int t=-TILE_HEIGHT+2;
+	int y;
+	for (y=1; y<TILE_HEIGHT-1; y++){
+                clear_line(y);
+		if ((t+y>=0) && t+y < (sizeof(hackers) / sizeof(__code const char*))){
+			print(1, y, hackers[t+y]);
+		}
+	}
+	delay(65534);
+	delay(65534);
+	delay(45000);
+	t++;
+	if (t > (sizeof(hackers) / sizeof(__code const char*))){
+		t=-TILE_HEIGHT+2;
+		crtinfo_mode = CRTINFO_DEFAULT_MESSAGE;
+	}
+}
+
 void main(void)
 {
-	int x=5, y=1, vx=1, vy=1;
 	setup_uart1();
 	init_video();
+	crtinfo_mode = CRTINFO_DEFAULT_MESSAGE;
 
 	while(1){
-		clear_screen();
-
 		//TODO: receive and process remote commands sent by
                 //an external device over the serial port.
 
-		#define TEXT_BLOCK_WIDTH 25
-		#define TEXT_BLOCK_HEIGHT 6
-		print(x,y,   "   GAROA HACKER CLUBE    ");
-
-		print(x,y+2, "   07 DE MAIO DE 2017    ");
-
-		print(x,y+4, "  Melhore este display!  ");
-		print(x,y+5, "github.com/garoa/CRT-info");
-
-                draw_border("X");
-		delay(20000);
-                draw_border("-");
-		delay(20000);
-                draw_border(".");
-		delay(20000);
-
-		x+=vx;
-		y+=vy;
-		if (x >= TILE_WIDTH - TEXT_BLOCK_WIDTH){
-			x = (TILE_WIDTH - TEXT_BLOCK_WIDTH - vx);
-			vx = -vx;
+		switch(crtinfo_mode){
+		case DISPLAY_HACKERS_TEXT:
+			display_hackers_text(); break;
+		default:
+			draw_bouncing_message(); break;
 		}
-		if (y >= TILE_HEIGHT - TEXT_BLOCK_HEIGHT){
-			y = (TILE_HEIGHT - TEXT_BLOCK_HEIGHT - vy);
-			vy = -vy;
-		}
-		if (x < 1){x = 1; vx = -vx;}
-		if (y < 1){y = 1; vy = -vy;}
-
-
 	};
 }
