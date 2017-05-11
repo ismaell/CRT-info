@@ -223,7 +223,15 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00010000,
 	0b11100000,
 	0b00000000,
-// FIXME missing :
+// Colon
+	0b00000000,
+	0b00000000,
+	0b00110000,
+	0b00110000,
+	0b00000000,
+	0b00110000,
+	0b00110000,
+	0b00000000,
 // Semicolon
 	0b00000000,
 	0b00000000,
