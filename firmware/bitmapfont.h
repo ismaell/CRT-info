@@ -140,7 +140,7 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00110000,
 	0b00110000,
 	0b00000000,
-// Slash '/':
+// Solidus (Slash)
 	0b00001000,
 	0b00001000,
 	0b00010000,
@@ -505,7 +505,15 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b11111000,
 	0b00000000,
 // FIXME missing [
-// FIXME missing \
+// Reverse Solidus
+	0b10000000,
+	0b10000000,
+	0b01000000,
+	0b00100000,
+	0b00010000,
+	0b00001000,
+	0b00001000,
+	0b00000000,
 // FIXME missing ]
 // FIXME missing ^
 // FIXME missing _
