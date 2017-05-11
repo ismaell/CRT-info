@@ -49,7 +49,15 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00000000,
 	0b00000000,
 	0b00000000,
-// FIXME missing #
+// Number Sign
+	0b00101000,
+	0b00101000,
+	0b11111110,
+	0b00101000,
+	0b11111110,
+	0b00101000,
+	0b00101000,
+	0b00000000,
 // FIXME missing %
 // FIXME missing &
 // Single Quote
