@@ -1,0 +1,38 @@
+CC      = sdcc
+CFLAGS  = --code-loc 0x0000 --xram-loc 0x0000 --std-sdcc11
+
+rom     = crtinfo.rom
+romsize = 65536
+
+objs    = crtinfo.rel
+
+
+.PHONY: all
+all: $(rom)
+
+$(rom:.rom=.ihx): $(objs)
+	$(CC) $(CFLAGS) -o $@ $(objs)
+
+.PHONY: clean
+clean:
+	rm -f	$(rom) \
+		$(rom:.rom=.ihx) \
+		$(objs) \
+		$(objs:.rel=.asm) \
+		$(objs:.rel=.lst) \
+		$(objs:.rel=.mem) \
+		$(objs:.rel=.map) \
+		$(objs:.rel=.lk) \
+		$(objs:.rel=.rst) \
+		$(objs:.rel=.rel) \
+		$(objs:.rel=.sym)
+
+
+
+.SUFFIXES: .rel .rom .ihx
+
+.c.rel:
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+.ihx.rom:
+	makebin -s $(romsize) $< $@
