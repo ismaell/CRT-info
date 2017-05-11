@@ -77,8 +77,24 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00000000,
 	0b00000000,
 	0b00000000,
-// FIXME missing (
-// FIXME missing )
+// Left Parenthesis
+	0b00100000,
+	0b01000000,
+	0b01000000,
+	0b10000000,
+	0b10000000,
+	0b01000000,
+	0b01000000,
+	0b00100000,
+// Right Parentesis
+	0b00001000,
+	0b00000100,
+	0b00000100,
+	0b00000010,
+	0b00000010,
+	0b00000100,
+	0b00000100,
+	0b00001000,
 // FIXME missing *
 // FIXME missing +
 // Comma
