@@ -95,7 +95,15 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00000100,
 	0b00000100,
 	0b00001000,
-// FIXME missing *
+// Asterisk
+	0b00000000,
+	0b10101000,
+	0b01110000,
+	0b11111000,
+	0b01110000,
+	0b10101000,
+	0b00000000,
+	0b00000000,
 // FIXME missing +
 // Comma
 	0b00000000,
