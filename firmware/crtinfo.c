@@ -67,11 +67,13 @@ static void draw_bouncing_message(){
 
 	#define TEXT_BLOCK_WIDTH 25
 	#define TEXT_BLOCK_HEIGHT 6
-	print(x,y,   "   GAROA HACKER CLUBE    ");
-	print(x,y+2, "   10 DE MAIO DE 2017    ");
-
-	print(x,y+4, "  Melhore este display!  ");
-	print(x,y+5, "github.com/garoa/CRT-info");
+	print(x,y,
+	      "   GAROA HACKER CLUBE    \n"
+	      "\n"
+	      "   10 DE MAIO DE 2017    \n"
+	      "\n"
+	      "  Melhore este display!  \n"
+	      "github.com/garoa/CRT-info");
 
 	draw_border("X");
 	delay(20000);
