@@ -257,7 +257,15 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00110000,
 	0b00110000,
 	0b00010000,
-// FIXME missing <
+// Less-Than Sign
+	0b00010000,
+	0b00100000,
+	0b01000000,
+	0b10000000,
+	0b01000000,
+	0b00100000,
+	0b00010000,
+	0b00000000,
 // Equals Sign
 	0b00000000,
 	0b00000000,
@@ -267,7 +275,15 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00000000,
 	0b00000000,
 	0b00000000,
-// FIXME missing >
+// Greater-Than Sign
+	0b00010000,
+	0b00001000,
+	0b00000100,
+	0b00000010,
+	0b00000100,
+	0b00001000,
+	0b00010000,
+	0b00000000,
 // FIXME missing ?
 // FIXME missing @
 // A:
