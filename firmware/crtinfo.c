@@ -11,7 +11,7 @@ void setup_uart1(){
 	PCON &= 0x7F; // PCON.7 = 0
 	TMOD = 0x20;
 	SCON = 0x50;
-	TH1  = 255; //256 - ((XTAL_11_0592MHz / 384) / BAUDRATE);
+	TH1  = (unsigned int)(256 - XTAL_11_0592MHz / 384 / BAUDRATE);
 	TL1  = 0x00;
 	TR1  = 1;
 }
