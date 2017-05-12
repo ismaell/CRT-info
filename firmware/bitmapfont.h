@@ -792,7 +792,15 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b01000000,
 	0b11111000,
 	0b00000000,
-// FIXME missing {
+// Left Curly Bracket
+	0b00011000,
+	0b00100000,
+	0b00100000,
+	0b11000000,
+	0b00100000,
+	0b00100000,
+	0b00011000,
+	0b00000000,
 // Vertical Line
 	0b00010000,
 	0b00010000,
@@ -802,6 +810,14 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00010000,
 	0b00010000,
 	0b00000000,
-// FIXME missing }
+// Right Curly Bracket
+	0b00110000,
+	0b00001000,
+	0b00001000,
+	0b00000110,
+	0b00001000,
+	0b00001000,
+	0b00110000,
+	0b00000000,
 // FIXME missing ~
 };
