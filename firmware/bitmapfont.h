@@ -547,7 +547,15 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00000010,
 	0b00001110,
 	0b00000000,
-// FIXME missing ^
+// Circumflex Accent
+	0b00010000,
+	0b00101000,
+	0b01000100,
+	0b00000000,
+	0b00000000,
+	0b00000000,
+	0b00000000,
+	0b00000000,
 // Low Line
 	0b00000000,
 	0b00000000,
