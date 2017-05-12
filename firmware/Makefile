@@ -32,7 +32,12 @@ clean:
 .SUFFIXES: .rel .rom .ihx
 
 .c.rel:
+	$(CC) $(CFLAGS) -MMD -o $(@:.rel=.d) $<
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 .ihx.rom:
 	makebin -s $(romsize) $< $@
+
+
+objdeps := $(objs:.rel=.d)
+-include $(objdeps)
