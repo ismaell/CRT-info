@@ -777,7 +777,15 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b11111000,
 	0b00000000,
 // FIXME missing {
-// FIXME missing |
+// Vertical Line
+	0b00010000,
+	0b00010000,
+	0b00010000,
+	0b00010000,
+	0b00010000,
+	0b00010000,
+	0b00010000,
+	0b00000000,
 // FIXME missing }
 // FIXME missing ~
 };
