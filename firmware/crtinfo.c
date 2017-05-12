@@ -24,7 +24,7 @@ void init_video(){
 	
 	// Load patterns:
 	vdp_set_vram_addr(PATTERN_TABLE_BASE_ADDR);
-	for (ptr = bitmap_font; ptr < (bitmap_font+PATTERNS_DATA_LENGTH); ptr++){
+	for (ptr = bitmap_font; ptr < bitmap_font_end; ptr++){
 		*((__xdata unsigned char*) VDP_DATA) = (*ptr);
 	}
 
@@ -67,11 +67,13 @@ static void draw_bouncing_message(){
 
 	#define TEXT_BLOCK_WIDTH 25
 	#define TEXT_BLOCK_HEIGHT 6
-	print(x,y,   "   GAROA HACKER CLUBE    ");
-	print(x,y+2, "   10 DE MAIO DE 2017    ");
-
-	print(x,y+4, "  Melhore este display!  ");
-	print(x,y+5, "github.com/garoa/CRT-info");
+	print(x,y,
+	      "   GAROA HACKER CLUBE    \n"
+	      "\n"
+	      "   10 DE MAIO DE 2017    \n"
+	      "\n"
+	      "  Melhore este display!  \n"
+	      "github.com/garoa/CRT-info");
 
 	draw_border("X");
 	delay(20000);

@@ -62,7 +62,7 @@ void clear_line(int line_number){
 	int x;
         vdp_set_vram_addr(NAME_TABLE_BASE_ADDR + TILE_WIDTH*line_number);
         for (x=0; x<TILE_WIDTH; x++){
-                *((__xdata unsigned char*) VDP_DATA) = TILEID_SPACE;
+                *((__xdata unsigned char*) VDP_DATA) = 0;
         }
 }
 
@@ -70,7 +70,7 @@ void clear_screen(){
         int i;
         vdp_set_vram_addr(NAME_TABLE_BASE_ADDR);
         for (i=0; i<TILE_WIDTH*TILE_HEIGHT; i++){
-                *((__xdata unsigned char*) VDP_DATA) = TILEID_SPACE;
+                *((__xdata unsigned char*) VDP_DATA) = 0;
         }
 }
 
@@ -85,38 +85,29 @@ void vdp_set_vram_addr(unsigned int address){
 	*((__xdata unsigned char*) VDP_COMMAND) = ((address >> 8) & 0x3f);
 }
 
-//These are the decoding rules of our bitmap font:
-inline int decode_char_into_tileid(char ch){
-	if (ch >= 'A' && ch <= 'Z')		return (TILEID_A + ch - 'A');
-	else if (ch >= 'a' && ch <= 'z')	return (TILEID_a + ch - 'a');
-	else if (ch >= '0' && ch <= '9')	return (TILEID_0 + ch - '0');
-	else if (ch == ' ')	return TILEID_SPACE;
-	else if (ch == '/')	return TILEID_SLASH;
-	else if (ch == '-')	return TILEID_DASH;
-	else if (ch == '.')	return TILEID_PERIOD;
-	else if (ch == ',')	return TILEID_COMMA;
-	else if (ch == ';')	return TILEID_SEMICOLON;
-	else if (ch == '!')	return TILEID_EXCLAMATION;
-	else if (ch == '\'')	return TILEID_SINGLEQUOTE;
-	else if (ch == '\"')	return TILEID_DOUBLEQUOTE;
-	else	return TILEID_MISSING_GLYPH;
-}
+static
+void __print(unsigned int addr, const char* str){
+	char ch;
 
-void print_len(int x, int y, const char* str, int len){
-	int l;
-	vdp_set_vram_addr(NAME_TABLE_BASE_ADDR + x + y * TILE_WIDTH);
-
-	for (l=0; l<len; l++){
-		*((__xdata char*) VDP_DATA) = decode_char_into_tileid(str[l]);
+	vdp_set_vram_addr(addr);
+	while (ch = *str++){
+		if (ch < ' ') {
+			switch (ch){
+			case '\n':
+				addr += TILE_WIDTH;
+			case '\r':
+				vdp_set_vram_addr(addr);
+				break;
+			}
+		} else {
+			*((__xdata char*) VDP_DATA) = ch > 126 ? 0 : ch - ' ';
+		}
 	}
 }
 
+static inline
 void print(int x, int y, const char* str){
-	vdp_set_vram_addr(NAME_TABLE_BASE_ADDR + x + y * TILE_WIDTH);
-
-	for (; *str != 0; str++){
-		*((__xdata char*) VDP_DATA) = decode_char_into_tileid(*str);
-	}
+	__print(NAME_TABLE_BASE_ADDR + x + y * TILE_WIDTH, str);
 }
 
 void delay(unsigned int delta){
