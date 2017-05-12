@@ -100,7 +100,7 @@ void __print(unsigned int addr, const char* str){
 				break;
 			}
 		} else {
-			*((__xdata char*) VDP_DATA) = ch > 126 ? 0 : ch - ' ' - 1;
+			*((__xdata char*) VDP_DATA) = ch > 126 ? 0 : ch - ' ';
 		}
 	}
 }
