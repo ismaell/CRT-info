@@ -27,6 +27,12 @@ clean:
 		$(objs:.rel=.rel) \
 		$(objs:.rel=.sym)
 
+.PHONY: run
+run: qmusica/2400.ci4
+	~/mame/qmusica64 -rp . qmusica
+
+qmusica/2400.ci4: $(rom)
+	install -D -m644 $(rom) $@
 
 
 .SUFFIXES: .rel .rom .ihx
