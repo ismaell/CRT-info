@@ -520,7 +520,15 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b10001000,
 	0b11111000,
 	0b00000000,
-// FIXME missing [
+// Left Square Bracket
+	0b11100000,
+	0b10000000,
+	0b10000000,
+	0b10000000,
+	0b10000000,
+	0b10000000,
+	0b11100000,
+	0b00000000,
 // Reverse Solidus
 	0b10000000,
 	0b10000000,
@@ -530,7 +538,15 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00001000,
 	0b00001000,
 	0b00000000,
-// FIXME missing ]
+// Right Square Bracket
+	0b00001110,
+	0b00000010,
+	0b00000010,
+	0b00000010,
+	0b00000010,
+	0b00000010,
+	0b00001110,
+	0b00000000,
 // FIXME missing ^
 // Low Line
 	0b00000000,
