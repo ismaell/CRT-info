@@ -819,5 +819,13 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00001000,
 	0b00110000,
 	0b00000000,
-// FIXME missing ~
+// Tilde
+	0b00000000,
+	0b00000000,
+	0b00000000,
+	0b01100110,
+	0b10011000,
+	0b00000000,
+	0b00000000,
+	0b00000000,
 };
