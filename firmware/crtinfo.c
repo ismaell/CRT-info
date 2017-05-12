@@ -24,7 +24,7 @@ void init_video(){
 	
 	// Load patterns:
 	vdp_set_vram_addr(PATTERN_TABLE_BASE_ADDR);
-	for (ptr = bitmap_font; ptr < (bitmap_font+PATTERNS_DATA_LENGTH); ptr++){
+	for (ptr = bitmap_font; ptr < bitmap_font_end; ptr++){
 		*((__xdata unsigned char*) VDP_DATA) = (*ptr);
 	}
 

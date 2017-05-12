@@ -1,27 +1,7 @@
 // (c) Felipe Sanches <juca@members.fsf.org>
 // Released under the terms of the GNU General Public License v3 (or later)
 
-#define LEN_MISSING 1
-#define LEN_AZ ('Z' - 'A' + 1)
-#define LEN_az ('z' - 'a' + 1)
-#define LEN_09 ('9' - '0' + 1)
-
-#define TILEID_MISSING_GLYPH 0
-#define TILEID_SPACE 0
-#define TILEID_A 1
-#define TILEID_a (TILEID_A + LEN_AZ)
-#define TILEID_0 (TILEID_a + LEN_az)
-#define TILEID_DASH (TILEID_0 + LEN_09)
-#define TILEID_SLASH (TILEID_DASH + 1)
-#define TILEID_PERIOD (TILEID_DASH + 2)
-#define TILEID_SEMICOLON (TILEID_DASH + 3)
-#define TILEID_COMMA (TILEID_DASH + 4)
-#define TILEID_SINGLEQUOTE (TILEID_DASH + 5)
-#define TILEID_DOUBLEQUOTE (TILEID_DASH + 6)
-#define TILEID_EXCLAMATION (TILEID_DASH + 7)
-
-#define PATTERNS_DATA_LENGTH (8*(TILEID_DASH+8))
-const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
+const unsigned char bitmap_font[] = {
 // Space (also used for missing glyphs) [0x20 in ASCII]
 	0b00000000,
 	0b00000000,
@@ -869,3 +849,5 @@ const unsigned char bitmap_font[PATTERNS_DATA_LENGTH] = {
 	0b00000000,
 	0b00000000,
 };
+// FIXME is there a way to define the following as a symbol?
+#define bitmap_font_end (bitmap_font+sizeof(bitmap_font))
