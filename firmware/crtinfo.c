@@ -221,6 +221,10 @@ __code const char hackers[] =
 void display_hackers_text(){
 	print(1, TILE_HEIGHT-1, hackers);
 	crtinfo_mode = CRTINFO_DEFAULT_MESSAGE;
+	delay(65534);
+	delay(65534);
+	delay(65534);
+	delay(65534);
 }
 
 void main(void)
