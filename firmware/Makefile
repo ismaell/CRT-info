@@ -4,7 +4,7 @@ CFLAGS  = --code-loc 0x0000 --xram-loc 0x0000 --std-sdcc11
 rom     = crtinfo.rom
 romsize = 65536
 
-objs    = crtinfo.rel
+objs    = crtinfo.rel interrupts.rel video.rel
 
 
 .PHONY: all
@@ -18,6 +18,7 @@ clean:
 	rm -f	$(rom) \
 		$(rom:.rom=.ihx) \
 		$(objs) \
+		$(objs:.rel=.d) \
 		$(objs:.rel=.asm) \
 		$(objs:.rel=.lst) \
 		$(objs:.rel=.mem) \
@@ -27,9 +28,10 @@ clean:
 		$(objs:.rel=.rel) \
 		$(objs:.rel=.sym)
 
+QMUSICA = $(HOME)/mame/qmusica64
 .PHONY: run
 run: qmusica/2400.ci4
-	~/mame/qmusica64 -rp . qmusica
+	$(QMUSICA) -rp . qmusica
 
 qmusica/2400.ci4: $(rom)
 	install -D -m644 $(rom) $@
